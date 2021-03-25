@@ -1,0 +1,44 @@
+#game_right_panel{
+	background: #000;
+	max-width: 500px;
+	width: 300px;
+    background-color: powderblue;
+}
+
+#board {
+	display: block;
+	width: 100%;
+	background-color: rgb(39, 39, 39);
+	align-items: stretch;
+	color:white;
+
+}
+
+#draw_card {
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+	
+	background-color: red;
+	height: 15%;
+	margin: 15px;
+}
+
+.flex-container {
+	display: flex;
+	/*flex-direction: row;*/
+	background-color: bisque;
+	/*flex-wrap: nowrap;	
+	flex-grow: 1;
+	margin: 0;*/
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0%;
+	/*align-content: stretch;  Extra space in Cross Axis */
+}
+
+html, body {
+	height: 100%;
+	margin: 0%;
+}
