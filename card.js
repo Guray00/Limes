@@ -13,7 +13,9 @@ function Card(i, j, f){
 	this.div.src = "./assets/null_card.svg"
 
 	this.div.addEventListener("click", () => {
-		this.field.click(this.x, this.y);
+		console.log("premuto");
+		if(this.state < 1) this.field.click(this.x, this.y);
+		else this.field.updateSelectable();
 	});
 
 	this.div.style.setProperty("grid-row", i);
