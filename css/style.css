@@ -1,0 +1,158 @@
+
+/*direttive per tutti*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#game_right_panel{
+	max-width: 	400pt;
+	width: 		225pt;
+	padding: 	20pt;
+	border-radius: 	20pt;
+	margin: 		25pt;
+	margin-right: 	15pt;
+
+	position: 	relative;
+    top: 		0;
+	max-height: 100vh;
+
+}
+
+
+
+/*the grid itself*/
+#board {
+	display: grid;
+
+	/*grid-gap: 	7pt;*/
+
+	/*width: 100%;
+	height: auto;*/
+
+	justify-content: center;
+	text-align: center;
+	
+	vertical-align: middle;
+
+	background-color: rgb(97, 56, 7);
+	/*justify-content: center;
+	justify-items: center;
+	*/
+
+	/*width: 100%;
+	height: auto;*/
+	
+}
+
+/*the image inside the cell*/
+.card, .selected_card {
+	display: block;
+	overflow: hidden;	
+
+	object-fit: contain;
+	/*justify-self: stretch;*/
+
+	align-self: center;
+	
+	max-width: 100%;
+	max-height: 100%;
+}
+
+
+.selected_card {
+	cursor: pointer;
+}
+
+.null_card {
+	display: none;
+}
+
+/*background-repeat: "no-repeat";
+	background-size: "contain";
+	background-position: "center";*/
+
+
+#draw_card {
+	display: flex;
+	
+	margin-top: 20pt;
+	margin-bottom: 20pt;
+
+	/*horizontal align center*/
+	margin-left: auto;
+	margin-right: auto;
+	
+	/*background*/
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+
+	/*align center*/
+	justify-content: center;
+	align-items: center;
+
+	height: 150pt;
+	width: 150pt;
+}
+
+#pawns {
+	display: grid;
+	grid-gap: 5pt;
+	margin-top: 10pt;
+	justify-content: space-evenly;
+	justify-items: center;
+}
+
+#pawn {
+	width: 35pt;
+	height: 35pt;
+
+	align-items: center;
+	justify-content: center;
+}
+
+#time_div {
+	display: flex;
+}
+
+
+
+#time {
+	align-content: center;
+}
+
+#game {
+	display: flex;
+	/*flex-direction: row;*/
+	/*flex-wrap: nowrap;	
+	flex-grow: 1;
+	margin: 0;*/
+
+
+	max-width: 100vw;
+	min-width: 100vw;
+	max-height: 100vh;
+	padding: 0;
+
+	
+	align-content: center;
+	justify-content: stretch;
+	vertical-align: middle;
+
+	/*fa fare overlow*/
+	/*align-items: center;*/
+
+
+	/*align-content: stretch;  Extra space in Cross Axis */
+}
+
+
+html, body {
+	max-width: 100vw;
+	max-height: 100vh;
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+}

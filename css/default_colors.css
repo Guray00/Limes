@@ -1,0 +1,38 @@
+#game_right_panel{
+    background-color: #ffffff;
+	border: 2pt solid #c7c7c7;
+}
+
+#board {
+	color: #000000;
+	/*background-color: #be1010;*/
+}
+
+
+
+.card, .null_card, .selected_card {
+	color: #ffffff;
+}
+
+/*
+
+.selected_card {
+	background-image: url(../assets/preview_white.svg);
+
+}
+
+.selected_card:hover{
+	background-image: url(../assets/preview_white_hover.svg);
+}
+
+.null_card:hover{
+	background-image: url(../assets/preview_white_hover.svg);
+}*/
+
+#draw_card{
+	background-image: url(../assets/preview.svg);
+}
+
+#game {
+	background-color: #35393f;
+}

@@ -1,0 +1,21 @@
+#game_right_panel{
+	transition: top ease 0.2s;
+	animation: fadein 2s;
+}
+
+.selected_card:hover {
+	transition: top ease 0.1s;
+	top: -5pt;
+}
+
+
+
+#game_right_panel:hover{
+	top: -5pt;
+}
+
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
