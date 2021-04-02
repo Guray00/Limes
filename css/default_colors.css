@@ -22,15 +22,15 @@
 }
 
 .water {
-	background-color: aqua;
+	background-color: rgb(88, 110, 235);
 }
 
 .field {
-	background-color: bisque;
+	background-color: rgb(255, 252, 77);
 }
 
 .rock {
-	background-color: rgb(54, 54, 54);
+	background-color: rgb(117, 117, 117);
 }
 
 .forest {

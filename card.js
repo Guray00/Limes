@@ -1,17 +1,11 @@
-/*
-	field
-	water
-	rock
-	forest
 
-*/ 
-
+// classe carta
 function Card(i, j, f){
 	this.x = i;
 	this.y = j;
 	this.field = f;
 	
-	this.state = -1; // -1 => null 0=> selectable      >0 => selected
+	this.state = -1; // -1 => null 0=> selectable   >0 => selected
 	this.element = document.createElement("div");
 
 	this.element.addEventListener("click", () => {
@@ -23,19 +17,8 @@ function Card(i, j, f){
 		return this.element;
 	}
 
-	this.spaceCalculate = function(el){
-		let width = el.style.getPropertyValue("grid-column-end")-el.style.getPropertyValue("grid-column-start")+1;
-		let height  = el.style.getPropertyValue("grid-row-end")-el.style.getPropertyValue("grid-row-start")+1;
 
-		let h = height*100/2;
-		let w = width*100/2;
-
-		el.style.setProperty("width", w+"%");
-		el.style.setProperty("height", h+"%");
-	}
-
-
-
+	// costruisce il contenuto della carta
 	this.build = function(model){
 		let m = [["", ""], 
 				 ["", ""]];
@@ -45,6 +28,7 @@ function Card(i, j, f){
 		m[1][0] = model["q3"];
 		m[1][1] = model["q4"];
 
+		// vengono aggiunti gli elementi adiacenti come unica cella
 		for (let i = 0; i< 2; i++){
 			for (let j = 0; j < 2; j++){
 
@@ -55,8 +39,6 @@ function Card(i, j, f){
 					m[i-1][j] = "";
 					el.style.setProperty("grid-column-start", j+1);
 					el.style.setProperty("grid-column-end",  j+1);
-
-					//el.style.setProperty("grid-row-start",  i);
 					el.style.setProperty("grid-row-end",  "span 2");
 					this.element.appendChild(el);
 				}
@@ -64,14 +46,10 @@ function Card(i, j, f){
 				if (m[i][j] != "" && i < 1 && m[i+1][j] == m[i][j]){
 					let el = document.createElement("div");
 					el.className = m[i][j];
-
 					m[i][j] = "";
 					m[i+1][j] = "";
-
 					el.style.setProperty("grid-column-start", j+1);
 					el.style.setProperty("grid-column-end",  j+1);
-
-					//el.style.setProperty("grid-row-start",  i+1);
 					el.style.setProperty("grid-row-end",  "span 2");
 					this.element.appendChild(el);
 				}
@@ -80,14 +58,9 @@ function Card(i, j, f){
 				if (m[i][j] != "" && j > 0 && m[i][j-1] == m[i][j]){
 					let el = document.createElement("div");
 					el.className = m[i][j];
-
 					m[i][j-1] = "";
 					m[i][j] = "";
-
-					//el.style.setProperty("grid-column-start", j);
 					el.style.setProperty("grid-column-end",  "span 2");
-
-					// controllo quello sopra, perciò parto da
 					el.style.setProperty("grid-row-start",  i+1);
 					el.style.setProperty("grid-row-end",  i+1);
 					this.element.appendChild(el);
@@ -96,25 +69,17 @@ function Card(i, j, f){
 				if (m[i][j] != "" && j < 1 && m[i][j+1] == m[i][j]){
 					let el = document.createElement("div");
 					el.className = m[i][j];
-
 					m[i][j] = "";
 					m[i][j+1] = "";
-
-					//el.style.setProperty("grid-column-start", j+1);
 					el.style.setProperty("grid-column-end",  "span 2");
-					
 					el.style.setProperty("grid-row-start",  i+1);
 					el.style.setProperty("grid-row-end",  i+1);
 					this.element.appendChild(el);
 				}
-
 			}
-			
-
-			//this.element.appendChild(txt);
 		}
 
-		
+		// vengono aggiunte parti che non si espandono
 		for (let i = 0; i < 2; i++){
 			for (let j = 0; j<2; j++){
 				if (m[i][j] != ""){
@@ -132,19 +97,11 @@ function Card(i, j, f){
 				}
 			}
 		}
-
-		
 	}
 
+	// disegna e posiziona correttamente la carta
 	this.draw = function (posX, posY, size){
-		//this.element.innerHTML="&nbsp;";
-
-		//let border = this.element.style.getPropertyValue("border-width");
-		
-		//
-
 		if (this.state ==-1){
-			//this.element.innerHTML = "";
 			this.element.className = "null_card";
 			return this.element;
 		}
@@ -155,12 +112,7 @@ function Card(i, j, f){
 		}
 
 		else {
-		
 			this.element.className = "card";
-			//this.element.style.setProperty("grid-template-rows", "1fr 1fr");
-			//this.element.style.setProperty("grid-template-columns", "1fr 1fr");
-			
-			//this.element.src = "./assets/cards/"+this.state+".svg";
 		}
 
 		// removing border
@@ -241,3 +193,6 @@ function Card(i, j, f){
 Card.avaiable = [];
 
 
+//this.element.style.setProperty("grid-template-rows", "1fr 1fr");
+//this.element.style.setProperty("grid-template-columns", "1fr 1fr");
+//this.element.src = "./assets/cards/"+this.state+".svg";

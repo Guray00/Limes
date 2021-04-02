@@ -5,7 +5,7 @@ function Field(){
 	this.ENDX = 0;
 	this.ENDY = 0;
 
-
+	// matrice del tabellone
 	this.matrix  = [[null,null,null,null, null, null, null], 
 					[null,null,null,null, null, null, null], 
 					[null,null,null,null, null, null, null], 
@@ -14,12 +14,7 @@ function Field(){
 					[null,null,null,null, null, null, null],
 					[null,null,null,null, null, null, null]];
 
-	this.test = function(){
-		let width  = this.board.parentElement.offsetWidth;
-		let height = this.board.parentElement.offsetHeight;
-		this.draw();
-	}
-
+	// inizializzo il campo
 	this.init = function(){
 		for (let i = 0; i < 7; i++){
 			for (let j = 0; j < 7; j++){
@@ -28,7 +23,11 @@ function Field(){
 			}
 		}
 	
-		this.selectCard(4,4);	
+		this.selectCard(4,4);
+		
+		window.addEventListener('resize', ()=>{
+			this.draw();
+		});
 	}
 
 
@@ -83,13 +82,13 @@ function Field(){
 	}
 
 
+	//cerco dove inizia la griglia
 	this.updateOrigin = function(){
 		this.ORIGIN_X = 7;
 		this.ORIGIN_Y = 7;
 		this.ENDX = 0;
 		this.ENDY = 0;
 
-		/*cerco dove inizia la griglia*/
 		for (x in this.matrix){
 			for (y in this.matrix[x]){
 				if(this.matrix[x][y].getState() != -1){
@@ -106,15 +105,15 @@ function Field(){
 
 	/*necessario per nascondere gli elementi inutili della griglia*/ 
 	this.draw = function(){
-		this.updateOrigin();
-		let size = this.calcSize();
+		this.updateOrigin();					// aggiorno il top-left della matrice
+		let size = this.calcSize();				// calcolo le dimensioni delle tessere
 		
 		for (x in this.matrix){
 			for (y in this.matrix[x]){					
-				let posX = x - this.ORIGIN_X+1;
+				let posX = x - this.ORIGIN_X+1;	// trovo le nuove coordinate per ciascuna carta
 				let posY = y - this.ORIGIN_Y+1;
 
-				this.getCard(x, y).draw(posX, posY, size, size);
+				this.getCard(x, y).draw(posX, posY, size); // ridisegno la carta
 			}
 		}		
 	}
@@ -133,8 +132,9 @@ function Field(){
 
 	// seleziono una carta
 	this.selectCard = function (x, y){
-		if (this.cardCheck()) return;
 
+		// se non ci sono più carte lo impedisco
+		if (this.cardCheck()) return;
 
 		this.getCard(x, y).select();
 		this.hideSelectable();
@@ -146,6 +146,7 @@ function Field(){
 		this.selectCard(x,y);
 	}
 
+	// controllo se ci sono carte da giocare
 	this.cardCheck = function(){
 		if (Card.avaiable.length == 0){
 			alert("carte finite");
@@ -156,12 +157,11 @@ function Field(){
 
 	// creo le carte tratteggiate
 	this.updateSelectable = function() {
-
 		if (this.cardCheck()) return;
 
 		for (x in this.matrix){
 			for (y in this.matrix[x]){
-
+				// controllo per ogni carta se ne  esiste una adiacente attiva
 				if (this.getCard(x, y).isNear(this) && this.getCard(x, y).state == -1){	
 					this.getCard(x,y).setSelectable(this);
 				}				

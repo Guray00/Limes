@@ -1,3 +1,9 @@
+/*
+
+	Lista delle carte presenti in gioco.
+
+*/
+
 card1 = {
 	"id": 1,
 	"q1": "forest",

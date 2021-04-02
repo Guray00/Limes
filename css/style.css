@@ -29,8 +29,8 @@
 	display: grid;
 	overflow: hidden;
 
-	/*max-width: 400px;
-	max-height: 400px;*/
+	max-width: 300pt;
+	max-height: 300pt;
 }
 
 

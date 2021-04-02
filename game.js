@@ -18,9 +18,7 @@ function begin(){
 	this.field = new Field();
 	this.field.init();
 	
-	window.addEventListener('resize', ()=>{
-		this.field.draw();
-	});
+	
 
 	
 
