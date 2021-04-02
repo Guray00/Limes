@@ -4,39 +4,55 @@ function Card(i, j, f){
 	this.x = i;
 	this.y = j;
 	this.field = f;
-	/*this.div = document.createElement('div');
-	this.div.style.setProperty("background-repeat", "no-repeat");
-	this.div.style.setProperty("background-size", "contain");
-	this.div.style.setProperty("background-position", "center");*/
+	
+	this.state = -1; // -1 => null 0=> selectable      >0 => selected
+	this.element = document.createElement("img");
 
-	this.div = document.createElement("img");
-	this.div.src = "./assets/null_card.svg"
-
-	this.div.addEventListener("click", () => {
-		console.log("premuto");
-		if(this.state < 1) this.field.click(this.x, this.y);
+	this.element.addEventListener("click", () => {
+		if(this.state == 0) this.field.click(this.x, this.y);
 		else this.field.updateSelectable();
 	});
 
-	this.div.style.setProperty("grid-row", i);
-	this.div.style.setProperty("grid-column", j);
-	
-	this.div.alt = "x: " + this.x +" y: "+ this.y;
+	this.getElement = function(){
+		return this.element;
+	}
 
-	this.state = -1; // 0 => null 1=> selectable 2=> selected
-	this.div.className = "null_card";
+	this.draw = function (posX, posY, sizeX, sizeY){
 
-	this.getElement = function() {
-		return this.div;
+		if (this.state ==-1){
+			//this.element.innerHTML = "";
+			this.element.className = "null_card";
+			return this.element;
+		}
+
+		else if (this.state == 0){
+			this.element.className = "selected_card";
+			this.element.src = "./assets/preview_white.svg"
+		}
+
+		else {
+		
+			this.element.className = "card";
+			this.element.src = "./assets/cards/"+this.state+".svg";
+		}
+
+		this.element.style.setProperty("grid-row", posX);
+		this.element.style.setProperty("grid-column", posY);
+		this.element.style.setProperty("height", sizeX+"px");
+		this.element.style.setProperty("width", sizeY+"px");
+
+		return this.element;
 	}
 
 
+
+	// restituisce lo stato della carta
 	this.getState = function (){
 		return this.state;
 	}
 
 
-
+	// controlla se ci sono tessere attive nelle vicinanze
 	this.isNear = function(m){
 
 		if (!this.state != 0){
@@ -63,25 +79,23 @@ function Card(i, j, f){
 		return false;
 	}
 
+	// rende una carta selezionabile
 	this.setSelectable = function(){
 		this.state = 0;
-		this.div.className = "selected_card";
-		this.div.src = "./assets/preview_white.svg"
 	}
 
+
+	// seleziona una carta tra le disponibili
 	this.select = function(){
 		let  i = Math.floor(Math.random() * Card.avaiable.length);    
 		this.state = Card.avaiable[i];
 		Card.avaiable.splice(i,1);
-
-		this.div.className = "card";
-		this.div.src = "./assets/cards/"+this.state+".svg";
 	}
 
+
+	// deseleziona una carta
 	this.unselectable = function(){
 		this.state = -1;
-		this.div.className = "null_card";
-		this.div.src = "./assets/null_card.svg"
 	}
 }
 

@@ -5,46 +5,57 @@
 	padding: 0;
 }
 
-#game_right_panel{
-	max-width: 	400pt;	
-	padding: 	20pt;
-	border-radius: 	20pt;
+#board-container {
+	display: flex;
 
-	position: 	relative;
-    top: 		0;
+	height: 100%;
+	width: 100%;
+	
+	justify-content: center;
+	align-items: center;
 }
-
-
 
 /*the grid itself*/
 #board {
-	display: inline-grid;
-	height: 100%;
-	background-color: rgba(255, 228, 196, 0.753);
+	display: grid;
+	grid-gap: 5pt;
+
+	/*funziona solo margin generico*/
+	margin: 10pt;
 }
 
-/*the image inside the cell*/
+/*carta attiva*/
 .card, .selected_card {
 	display: block;
 	overflow: hidden;
-	height: 100%;
+
+	max-width: 400px;
+	max-height: 400px;
 }
 
 
 .selected_card {
 	cursor: pointer;
+	position: relative;
 }
+
 
 .null_card {
 	display: none;
-	overflow: hidden;
-	height: 100%;
-	object-fit: contain;
 }
 
-/*background-repeat: "no-repeat";
-	background-size: "contain";
-	background-position: "center";*/
+
+
+#game_right_panel{
+	max-width: 	400pt;	
+	min-width: 200pt;
+	padding: 	20pt;
+	border-radius: 	20pt;
+	
+	position: 	relative;
+	top: 		0;
+}
+	
 
 
 #draw_card {
@@ -53,16 +64,15 @@
 	margin-top: 20pt;
 	margin-bottom: 20pt;
 
-	/*horizontal align center*/
+	
 	margin-left: auto;
 	margin-right: auto;
 	
-	/*background*/
+
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
 
-	/*align center*/
 	justify-content: center;
 	align-items: center;
 
@@ -103,7 +113,10 @@
 	width: 100vw;
 
 	text-align: center;
+	justify-content: center;
+	flex-wrap: nowrap;
 }
+
 
 
 html, body {
@@ -112,6 +125,8 @@ html, body {
 
 	height: 100vh;
 	width: 100vw;
-
-	text-align: center;
 }
+
+/*background-repeat: "no-repeat";
+	background-size: "contain";
+	background-position: "center";*/
