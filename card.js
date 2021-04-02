@@ -1,4 +1,10 @@
+/*
+	field
+	water
+	rock
+	forest
 
+*/ 
 
 function Card(i, j, f){
 	this.x = i;
@@ -6,10 +12,10 @@ function Card(i, j, f){
 	this.field = f;
 	
 	this.state = -1; // -1 => null 0=> selectable      >0 => selected
-	this.element = document.createElement("img");
+	this.element = document.createElement("div");
 
 	this.element.addEventListener("click", () => {
-		if(this.state == 0) this.field.click(this.x, this.y);
+		if(this.state == 0) this.field.selectCard(this.x, this.y);
 		else this.field.updateSelectable();
 	});
 
@@ -17,7 +23,125 @@ function Card(i, j, f){
 		return this.element;
 	}
 
-	this.draw = function (posX, posY, sizeX, sizeY){
+	this.spaceCalculate = function(el){
+		let width = el.style.getPropertyValue("grid-column-end")-el.style.getPropertyValue("grid-column-start")+1;
+		let height  = el.style.getPropertyValue("grid-row-end")-el.style.getPropertyValue("grid-row-start")+1;
+
+		let h = height*100/2;
+		let w = width*100/2;
+
+		el.style.setProperty("width", w+"%");
+		el.style.setProperty("height", h+"%");
+	}
+
+
+
+	this.build = function(model){
+		let m = [["", ""], 
+				 ["", ""]];
+
+		m[0][0] = model["q1"];
+		m[0][1] = model["q2"];
+		m[1][0] = model["q3"];
+		m[1][1] = model["q4"];
+
+		for (let i = 0; i< 2; i++){
+			for (let j = 0; j < 2; j++){
+
+				if (m[i][j] != "" && i > 0 && m[i-1][j] == m[i][j]){
+					let el = document.createElement("div");
+					el.className = m[i][j];
+					m[i][j] = "";
+					m[i-1][j] = "";
+					el.style.setProperty("grid-column-start", j+1);
+					el.style.setProperty("grid-column-end",  j+1);
+
+					//el.style.setProperty("grid-row-start",  i);
+					el.style.setProperty("grid-row-end",  "span 2");
+					this.element.appendChild(el);
+				}
+
+				if (m[i][j] != "" && i < 1 && m[i+1][j] == m[i][j]){
+					let el = document.createElement("div");
+					el.className = m[i][j];
+
+					m[i][j] = "";
+					m[i+1][j] = "";
+
+					el.style.setProperty("grid-column-start", j+1);
+					el.style.setProperty("grid-column-end",  j+1);
+
+					//el.style.setProperty("grid-row-start",  i+1);
+					el.style.setProperty("grid-row-end",  "span 2");
+					this.element.appendChild(el);
+				}
+				
+
+				if (m[i][j] != "" && j > 0 && m[i][j-1] == m[i][j]){
+					let el = document.createElement("div");
+					el.className = m[i][j];
+
+					m[i][j-1] = "";
+					m[i][j] = "";
+
+					//el.style.setProperty("grid-column-start", j);
+					el.style.setProperty("grid-column-end",  "span 2");
+
+					// controllo quello sopra, perciò parto da
+					el.style.setProperty("grid-row-start",  i+1);
+					el.style.setProperty("grid-row-end",  i+1);
+					this.element.appendChild(el);
+				}
+
+				if (m[i][j] != "" && j < 1 && m[i][j+1] == m[i][j]){
+					let el = document.createElement("div");
+					el.className = m[i][j];
+
+					m[i][j] = "";
+					m[i][j+1] = "";
+
+					//el.style.setProperty("grid-column-start", j+1);
+					el.style.setProperty("grid-column-end",  "span 2");
+					
+					el.style.setProperty("grid-row-start",  i+1);
+					el.style.setProperty("grid-row-end",  i+1);
+					this.element.appendChild(el);
+				}
+
+			}
+			
+
+			//this.element.appendChild(txt);
+		}
+
+		
+		for (let i = 0; i < 2; i++){
+			for (let j = 0; j<2; j++){
+				if (m[i][j] != ""){
+					let el = document.createElement("div");
+					el.className = m[i][j];
+
+					m[i][j] = "";
+
+					el.style.setProperty("grid-column-start", j+1);
+					el.style.setProperty("grid-column-end",  j+1);
+					
+					el.style.setProperty("grid-row-start",  i+1);
+					el.style.setProperty("grid-row-end",  i+1);
+					this.element.appendChild(el);
+				}
+			}
+		}
+
+		
+	}
+
+	this.draw = function (posX, posY, size){
+		//this.element.innerHTML="&nbsp;";
+
+		//let border = this.element.style.getPropertyValue("border-width");
+		
+		//
 
 		if (this.state ==-1){
 			//this.element.innerHTML = "";
@@ -27,20 +151,28 @@ function Card(i, j, f){
 
 		else if (this.state == 0){
 			this.element.className = "selected_card";
-			this.element.src = "./assets/preview_white.svg"
+			this.element.style.setProperty("background-size", "contain");
 		}
 
 		else {
 		
 			this.element.className = "card";
-			this.element.src = "./assets/cards/"+this.state+".svg";
+			//this.element.style.setProperty("grid-template-rows", "1fr 1fr");
+			//this.element.style.setProperty("grid-template-columns", "1fr 1fr");
+			
+			//this.element.src = "./assets/cards/"+this.state+".svg";
 		}
+
+		// removing border
+		let border = parseFloat(getComputedStyle(this.element).getPropertyValue("border-width"));
+		size-= border*2;
 
 		this.element.style.setProperty("grid-row", posX);
 		this.element.style.setProperty("grid-column", posY);
-		this.element.style.setProperty("height", sizeX+"px");
-		this.element.style.setProperty("width", sizeY+"px");
-
+		this.element.style.setProperty("height", size+"px");
+		this.element.style.setProperty("width", size+"px");
+		//his.element.style.setProperty("min-height", sizeX+"px");
+		//this.element.style.setProperty("min-width", sizeY+"px");
 		return this.element;
 	}
 
@@ -87,9 +219,15 @@ function Card(i, j, f){
 
 	// seleziona una carta tra le disponibili
 	this.select = function(){
+
 		let  i = Math.floor(Math.random() * Card.avaiable.length);    
-		this.state = Card.avaiable[i];
+		this.state = 2;
+		console.log(Card.avaiable[i]);
+		//console.log(this.state);
+
+		this.build(Card.avaiable[i]);
 		Card.avaiable.splice(i,1);
+		// la costruzione delle sottoparti deve avvenire solamente al momento dell'attivazione
 	}
 
 
@@ -101,4 +239,5 @@ function Card(i, j, f){
 
 
 Card.avaiable = [];
-for (let i = 1; i <= 24; i++) Card.avaiable.push(i);
+
+

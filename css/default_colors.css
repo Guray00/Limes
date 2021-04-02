@@ -3,23 +3,40 @@
 	border: 2pt solid #c7c7c7;
 }
 
-#board {
-	color: #000000;
-	/*background-color: #be1010;*/
-}
-
-
 
 .card, .null_card, .selected_card {
 	color: #ffffff;
 }
 
-/*
+
+.card {
+	border: solid white;
+	border-width: 5pt;
+}
+
 
 .selected_card {
 	background-image: url(../assets/preview_white.svg);
-
+	background-repeat: "no-repeat";
+	background-position: "center";
 }
+
+.water {
+	background-color: aqua;
+}
+
+.field {
+	background-color: bisque;
+}
+
+.rock {
+	background-color: rgb(54, 54, 54);
+}
+
+.forest {
+	background-color: rgb(28, 168, 51);
+}
+/*
 
 .selected_card:hover{
 	background-image: url(../assets/preview_white_hover.svg);

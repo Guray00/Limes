@@ -14,6 +14,11 @@ function Field(){
 					[null,null,null,null, null, null, null],
 					[null,null,null,null, null, null, null]];
 
+	this.test = function(){
+		let width  = this.board.parentElement.offsetWidth;
+		let height = this.board.parentElement.offsetHeight;
+		this.draw();
+	}
 
 	this.init = function(){
 		for (let i = 0; i < 7; i++){
@@ -25,6 +30,7 @@ function Field(){
 	
 		this.selectCard(4,4);	
 	}
+
 
 	// aggiunge una carta alla matrice
 	this.addCard = function(card){
@@ -54,26 +60,25 @@ function Field(){
 		let width  = this.board.parentElement.offsetWidth;
 		let height = this.board.parentElement.offsetHeight;
 
+
 		// recupero il gap tra le celle
 		const gap = parseFloat(getComputedStyle(board).getPropertyValue("grid-gap"));
 		const margin = parseFloat(getComputedStyle(board).getPropertyValue("margin"));
-		console.log("margin: "+margin);
 
-		height-= (margin*2);
-		width-= (margin*2);
+		// tengo conto dei margini
+		height -= (margin*2);
+		width  -= (margin*2);
 
 		// ritorno le dimensioni corrette delle tessere
 		let h,w = 0;
 		if (height/rows < width/columns){
 			h = (height-gap*rows)/rows;
-			//let pt = 3/4*h;
-			return h,h;
+			return h;
 		}
 
 		else {
 			w = (width-gap*columns)/columns;
-			//let pt = 3/4*w;
-			return w,w;
+			return w;
 		}
 	}
 
@@ -93,7 +98,6 @@ function Field(){
 
 					if (this.ENDX < x) this.ENDX = x;
 					if (this.ENDY < y) this.ENDY = y;
-					//break;
 				}
 			}
 		}
@@ -103,18 +107,14 @@ function Field(){
 	/*necessario per nascondere gli elementi inutili della griglia*/ 
 	this.draw = function(){
 		this.updateOrigin();
-		console.log("origin: "+ this.ORIGIN_X + " " + this.ORIGIN_Y);
-		let sizeX, sizeY = this.calcSize();
-
-		// cancello la griglia
-		//board.innerHTML = "";
+		let size = this.calcSize();
 		
 		for (x in this.matrix){
 			for (y in this.matrix[x]){					
 				let posX = x - this.ORIGIN_X+1;
 				let posY = y - this.ORIGIN_Y+1;
 
-				this.getCard(x, y).draw(posX, posY, sizeX, sizeY);
+				this.getCard(x, y).draw(posX, posY, size, size);
 			}
 		}		
 	}
@@ -133,6 +133,9 @@ function Field(){
 
 	// seleziono una carta
 	this.selectCard = function (x, y){
+		if (this.cardCheck()) return;
+
+
 		this.getCard(x, y).select();
 		this.hideSelectable();
 		this.draw();
@@ -143,9 +146,19 @@ function Field(){
 		this.selectCard(x,y);
 	}
 
+	this.cardCheck = function(){
+		if (Card.avaiable.length == 0){
+			alert("carte finite");
+			return true;
+		}
+
+	}
 
 	// creo le carte tratteggiate
 	this.updateSelectable = function() {
+
+		if (this.cardCheck()) return;
+
 		for (x in this.matrix){
 			for (y in this.matrix[x]){
 

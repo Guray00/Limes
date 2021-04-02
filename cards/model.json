@@ -1,0 +1,22 @@
+
+{
+	"water-column-start": "-1",
+	"water-column-end": "-1",
+	"water-row-start": "-1",
+	"water-row-end": -1,
+
+	"field-column-start": -1,
+	"field-column-end": -1,
+	"field-row-start": -1,
+	"field-row-end": -1,
+
+	"rock-column-start": -1,
+	"rock-column-end": -1,
+	"rock-row-start": -1,
+	"rock-row-end": -1,
+
+	"forest-column-start": -1,
+	"forest-column-end": -1,
+	"forest-row-start": -1,
+	"forest-row-end": -1
+}

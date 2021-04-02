@@ -26,11 +26,11 @@
 
 /*carta attiva*/
 .card, .selected_card {
-	display: block;
+	display: grid;
 	overflow: hidden;
 
-	max-width: 400px;
-	max-height: 400px;
+	/*max-width: 400px;
+	max-height: 400px;*/
 }
 
 
@@ -127,6 +127,8 @@ html, body {
 	width: 100vw;
 }
 
-/*background-repeat: "no-repeat";
-	background-size: "contain";
-	background-position: "center";*/
+.water, .field, .rock, .forest {
+	display: block;
+	overflow: hidden;
+}
+
