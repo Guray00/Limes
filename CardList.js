@@ -6,12 +6,12 @@
 
 card1 = {
 	"id": 1,
-	"q1": "forest",
-	"q2": "field",
-	"q3": "forest",
-	"q4": "field"
+	"q1": {"type": "forest", "hut": [1,0,0,0]},
+	"q2": {"type": "field", "hut": [0,1,0,0]},
+	"q3": {"type": "forest", "hut": [0,0,0,0]},
+	"q4": {"type": "field", "hut": [0,0,0,0]}
 }
-
+/*
 card2 = {
 	"id": 2,
 	"q1": "water",
@@ -223,4 +223,6 @@ Card.avaiable.push(card20);
 Card.avaiable.push(card21);
 Card.avaiable.push(card22);
 Card.avaiable.push(card23);
-Card.avaiable.push(card24);
+Card.avaiable.push(card24);*/
+
+Card.avaiable.push(card1);

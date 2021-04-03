@@ -1,9 +1,6 @@
 function Field(){
 	this.board = document.getElementById("board");
-	this.ORIGIN_X = 4;
-	this.ORIGIN_Y = 4;
-	this.ENDX = 0;
-	this.ENDY = 0;
+	
 
 	// matrice del tabellone
 	this.matrix  = [[null,null,null,null, null, null, null], 
@@ -14,16 +11,21 @@ function Field(){
 					[null,null,null,null, null, null, null],
 					[null,null,null,null, null, null, null]];
 
+	this.ORIGIN_X = 3;
+	this.ORIGIN_Y = 3;
+	this.ENDX = 0;
+	this.ENDY = 0;
+
 	// inizializzo il campo
 	this.init = function(){
-		for (let i = 0; i < 7; i++){
-			for (let j = 0; j < 7; j++){
+		for (let i = 0; i < this.matrix[0].length; i++){
+			for (let j = 0; j < this.matrix.length; j++){
 				let tmp = new Card(i, j, this);			
 				this.addCard(tmp);
 			}
 		}
 	
-		this.selectCard(4,4);
+		this.selectCard(3,3);
 		
 		window.addEventListener('resize', ()=>{
 			this.draw();
@@ -84,8 +86,8 @@ function Field(){
 
 	//cerco dove inizia la griglia
 	this.updateOrigin = function(){
-		this.ORIGIN_X = 7;
-		this.ORIGIN_Y = 7;
+		this.ORIGIN_X = this.matrix[0].length;
+		this.ORIGIN_Y = this.matrix.length;
 		this.ENDX = 0;
 		this.ENDY = 0;
 
@@ -152,7 +154,17 @@ function Field(){
 			alert("carte finite");
 			return true;
 		}
+	}
 
+	this.gameOverCheck = function(){
+		let over = true;
+		for (x in this.matrix){
+			for (y in this.matrix[x]){
+				if (this.matrix[x][y].getState() == 0) over = false;
+			}
+		}
+
+		return over;
 	}
 
 	// creo le carte tratteggiate
@@ -163,12 +175,33 @@ function Field(){
 			for (y in this.matrix[x]){
 				// controllo per ogni carta se ne  esiste una adiacente attiva
 				if (this.getCard(x, y).isNear(this) && this.getCard(x, y).state == -1){	
-					this.getCard(x,y).setSelectable(this);
+
+					let w = this.ENDX - this.ORIGIN_X +1;
+					let h = this.ENDY - this.ORIGIN_Y +1;
+					
+
+					// se esce dalla x e sono già presenti 4 tessere non fare nulla
+					if ( (x < this.ORIGIN_X  || x > this.ENDX) && (w > 3) ){}
+					// se esce dalla y e sono già presenti 4 tessere non fare nulla
+					else if (  (y < this.ORIGIN_Y  || y > this.ENDY) && (h > 3) ){
+					}
+
+					else{
+						this.matrix[x][y].setSelectable(this);
+						avaiable = true;
+					}
+						
 				}				
 			}
 		}
 
+		if (this.gameOverCheck()) {
+			alert("game over");
+			return;
+		}
+
 		this.draw();
+		
 	}
 }
 

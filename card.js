@@ -17,19 +17,27 @@ function Card(i, j, f){
 		return this.element;
 	}
 
+	this.generateHut = function(el, posx, posy){
+		let hut = document.createElement("div");
+		hut.className = "hut";
+		hut.style.setProperty("grid-column",  posy);
+		hut.style.setProperty("grid-row",  posx);
+		el.appendChild(hut);
+	}
 
 	// costruisce il contenuto della carta
 	this.build = function(model){
 		let m = [["", ""], 
 				 ["", ""]];
 
-		m[0][0] = model["q1"];
-		m[0][1] = model["q2"];
-		m[1][0] = model["q3"];
-		m[1][1] = model["q4"];
+		m[0][0] = model["q1"]["type"];
+		m[0][1] = model["q2"]["type"];
+		m[1][0] = model["q3"]["type"];
+		m[1][1] = model["q4"]["type"];
 
 		// vengono aggiunti gli elementi adiacenti come unica cella
-		for (let i = 0; i< 2; i++){
+		
+		/*for (let i = 0; i< 2; i++){
 			for (let j = 0; j < 2; j++){
 
 				if (m[i][j] != "" && i > 0 && m[i-1][j] == m[i][j]){
@@ -77,14 +85,17 @@ function Card(i, j, f){
 					this.element.appendChild(el);
 				}
 			}
-		}
+		}*/
 
 		// vengono aggiunte parti che non si espandono
+
+		let count = 0;
 		for (let i = 0; i < 2; i++){
 			for (let j = 0; j<2; j++){
+				count++;
 				if (m[i][j] != ""){
 					let el = document.createElement("div");
-					el.className = m[i][j];
+					el.className = "zone "+m[i][j];
 
 					m[i][j] = "";
 
@@ -93,6 +104,23 @@ function Card(i, j, f){
 					
 					el.style.setProperty("grid-row-start",  i+1);
 					el.style.setProperty("grid-row-end",  i+1);
+
+					// costruisco le case
+					let z = 0;
+					for (x in model["q"+count]["hut"]){
+						console.log(x);
+						// sopra
+						if      (x == 0 && model["q"+count]["hut"][x] == 1) this.generateHut(el, 1, 2);	
+						// destra
+						else if (x == 1 && model["q"+count]["hut"][x] == 1) this.generateHut(el, 2, 3);
+						// sotto
+						else if (x == 2 && model["q"+count]["hut"][x] == 1) this.generateHut(el, 3, 2);
+						// sinistra
+						else if (x == 3 && model["q"+count]["hut"][x] == 1) this.generateHut(el, 2, 1);
+
+					}
+
+
 					this.element.appendChild(el);
 				}
 			}

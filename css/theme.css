@@ -10,8 +10,9 @@
 
 
 .card {
-	border: solid white;
-	border-width: 5pt;
+	border: solid rgba(0, 0, 0, 0.192);
+	border-width: 10pt;	
+	box-shadow: 0 4px 8px 0 rgba(59, 59, 59, 0.089), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -20,6 +21,13 @@
 	background-repeat: "no-repeat";
 	background-position: "center";
 }
+
+.selected_card:hover {
+	background-image: url(../assets/preview_white_hover.svg);
+	background-repeat: "no-repeat";
+	background-position: "center";
+}
+
 
 .water {
 	background-color: rgb(88, 110, 235);
@@ -36,6 +44,13 @@
 .forest {
 	background-color: rgb(28, 168, 51);
 }
+
+.hut {
+	background-color: rgb(216, 9, 9);
+	border: solid #ff7979 2pt;
+}
+
+
 /*
 
 .selected_card:hover{

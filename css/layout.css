@@ -44,6 +44,16 @@
 	display: none;
 }
 
+.zone {
+	padding: 10%;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	overflow: hidden;
+} 
+
+
+
 
 
 #game_right_panel{
@@ -125,10 +135,5 @@ html, body {
 
 	height: 100vh;
 	width: 100vw;
-}
-
-.water, .field, .rock, .forest {
-	display: block;
-	overflow: hidden;
 }
 
